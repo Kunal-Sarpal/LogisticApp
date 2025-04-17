@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Step 1 -->
+    <TextView
+        android:id="@+id/step1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Confirmed"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:drawableStart="@drawable/ic_check_circle"
+        android:drawablePadding="8dp"
+        android:paddingVertical="4dp" />
+
+    <!-- Step 2 -->
+    <TextView
+        android:id="@+id/step2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shipped"
+        android:textColor="@color/black"
+        android:drawableStart="@drawable/ic_check_circle"
+        android:drawablePadding="8dp"
+        android:paddingVertical="4dp" />
+
+    <!-- Step 3 -->
+    <TextView
+        android:id="@+id/step3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="In Transit"
+        android:textColor="@color/black"
+        android:drawableStart="@drawable/ic_check_circle"
+        android:drawablePadding="8dp"
+        android:paddingVertical="4dp" />
+
+    <!-- Step 4 -->
+    <TextView
+        android:id="@+id/step4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Out for Delivery"
+        android:textColor="@color/gray"
+        android:drawableStart="@drawable/ic_circle"
+        android:drawablePadding="8dp"
+        android:paddingVertical="4dp" />
+
+</LinearLayout>
