@@ -11,6 +11,7 @@ import com.example.pocketlogisticapp.TokenManager.TokensManager
 import com.example.pocketlogisticapp.auth.AdminLogin
 import com.example.pocketlogisticapp.auth.AgentLogin
 import com.example.pocketlogisticapp.auth.CustomerLogin
+import com.example.pocketlogisticapp.dashbords.Admin
 import com.example.pocketlogisticapp.dashbords.Agent
 import com.example.pocketlogisticapp.dashbords.Customer
 
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 "Admin" -> {
                     // Replace with actual Admin Dashboard if any
-                    startActivity(Intent(this, AdminLogin::class.java))
+                    startActivity(Intent(this, Admin::class.java))
                     finish()
                 }
             }

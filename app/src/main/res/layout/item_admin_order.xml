@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_margin="8dp"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="6dp">
+
+    <LinearLayout
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Product Name -->
+        <TextView
+            android:id="@+id/tvProductName"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="Product: JBL Sound Bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Product Price -->
+        <TextView
+            android:id="@+id/tvPrice"
+            android:text="Price: ₹4999"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- UPI Transaction ID -->
+        <TextView
+            android:id="@+id/tvUpiId"
+            android:text="UPI: 1234567890"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Phone Number -->
+        <TextView
+            android:id="@+id/tvPhone"
+            android:text="Phone: 9090909090"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnAssignAgent"
+                android:text="Assign Agent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnCheckStatus"
+                android:text="Check Status"
+                android:layout_marginStart="8dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
