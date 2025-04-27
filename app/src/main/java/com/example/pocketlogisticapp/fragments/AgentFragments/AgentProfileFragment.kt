@@ -1,4 +1,4 @@
-package com.example.pocketlogisticapp.fragments.AdminFragments
+package com.example.pocketlogisticapp.fragments.AgentFragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,13 +12,8 @@ import com.example.pocketlogisticapp.R
 import com.example.pocketlogisticapp.TokenManager.TokensManager
 
 
-class AdminProfileFragment : Fragment() {
-
-
-
-
+class AgentProfileFragment : Fragment() {
     private lateinit var btn: Button
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +28,4 @@ class AdminProfileFragment : Fragment() {
         }
         return view
     }
-
-
 }

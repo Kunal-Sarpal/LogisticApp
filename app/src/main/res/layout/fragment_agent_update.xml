@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    tools:context=".fragments.AgentFragments.AgentUpdateFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Heading Text -->
+        <TextView
+            android:id="@+id/headingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update Your Order"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- No Orders Message (Hidden by default) -->
+        <TextView
+            android:id="@+id/noOrderMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You don't have any orders, you have to wait to update."
+            android:textSize="16sp"
+            android:textColor="#D32F2F"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Error TextView (Hidden by Default) -->
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please fill all fields correctly"
+            android:textSize="14sp"
+            android:textColor="#D32F2F"
+            android:background="#FFEBEE"
+            android:padding="8dp"
+            android:visibility="gone"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Pickup Location Input -->
+        <LinearLayout
+            android:id="@+id/pickupLocationLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/pickupLocationInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Pickup Location"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:textColorHint="#757575"
+                android:background="@null"
+                android:inputType="text"/>
+        </LinearLayout>
+
+        <!-- Pickup Pincode Input -->
+        <LinearLayout
+            android:id="@+id/pickupPincodeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:elevation="2dp"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/pickupPincodeInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Pickup Pincode"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                android:textColorHint="#757575"
+                android:background="@null"
+                android:inputType="number"/>
+        </LinearLayout>
+
+        <!-- Update Button -->
+        <Button
+            android:id="@+id/updateButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Order"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#4CAF50"
+            android:padding="12dp"
+            android:elevation="2dp"
+            android:layout_marginHorizontal="16dp"/>
+    </LinearLayout>
+</FrameLayout>
