@@ -9,6 +9,7 @@ import com.example.pocketlogisticapp.R
 import com.example.pocketlogisticapp.fragments.AdminFragments.AdminProfileFragment
 import com.example.pocketlogisticapp.fragments.AdminFragments.AgentsListFragment
 import com.example.pocketlogisticapp.fragments.AdminFragments.OrdersFragment
+import com.example.pocketlogisticapp.fragments.AdminFragments.createProductFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Admin : AppCompatActivity() {
@@ -20,15 +21,13 @@ class Admin : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
-        loadFragment(AgentsListFragment())
+        loadFragment(OrdersFragment())
 
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_home -> loadFragment(AgentsListFragment())
-                R.id.nav_orders -> loadFragment(OrdersFragment())
+                R.id.nav_home -> loadFragment(OrdersFragment())
+                R.id.nav_orders -> loadFragment(createProductFragment())
                 R.id.nav_profile -> loadFragment(AdminProfileFragment())
-                R.id.nav_orders -> loadFragment(OrdersFragment())
-
 
             }
             true

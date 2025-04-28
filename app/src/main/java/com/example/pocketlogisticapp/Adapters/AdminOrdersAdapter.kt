@@ -7,7 +7,13 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pocketlogisticapp.R
+import com.example.pocketlogisticapp.TokenManager.TokensManager
+import com.example.pocketlogisticapp.api.RetrofitClient
 import com.example.pocketlogisticapp.models.SingleOrder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import android.util.Log
 
 class AdminOrdersAdapter(
     private val orders: List<SingleOrder>,
@@ -40,6 +46,17 @@ class AdminOrdersAdapter(
         holder.upiId.text = "UPI: ${order.upiTransactionId}"
         holder.phone.text = "Phone: ${order.userId.phone}"
 
+        // Disable the button by default
+        holder.btnAssignAgent.isEnabled = false
+
+        // Fetch the order status
+        fetchOrderStatus(holder.itemView, order._id) { status ->
+            // Enable the button if status is not 'assigned'
+            if (status != "assigned") {
+                holder.btnAssignAgent.isEnabled = true
+            }
+        }
+
         // Set click listeners for buttons
         holder.btnAssignAgent.setOnClickListener {
             onAssignClick(order._id)
@@ -48,6 +65,31 @@ class AdminOrdersAdapter(
         holder.btnCheckStatus.setOnClickListener {
             onStatusClick(order._id)
         }
+    }
+
+    private fun fetchOrderStatus(itemView: View, orderId: String, callback: (String) -> Unit) {
+        val context = itemView.context
+        val token = TokensManager.getToken(context) ?: ""
+        val authHeader = token
+
+        RetrofitClient.instance.getOrderStatus(authHeader, orderId)
+            .enqueue(object : Callback<Map<String, Any>> {
+                override fun onResponse(
+                    call: Call<Map<String, Any>>,
+                    response: Response<Map<String, Any>>
+                ) {
+                    if (response.isSuccessful && response.body() != null) {
+                        val status = response.body()?.get("status")?.toString() ?: "Not Assigned"
+                        callback(status)
+                    } else {
+                        Log.e("OrderStatusAPI", "Error: ${response.code()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {
+                    Log.e("OrderStatusAPI", "Failure: ${t.message}")
+                }
+            })
     }
 
     override fun getItemCount(): Int = orders.size

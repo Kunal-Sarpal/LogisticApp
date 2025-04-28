@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +25,7 @@ class OrdersFragment : Fragment() {
 
     private lateinit var ordersRecyclerView: RecyclerView
     private lateinit var orderAdapter: AdminOrdersAdapter
+    private lateinit var  button:Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +35,6 @@ class OrdersFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_orders, container, false)
         ordersRecyclerView = view.findViewById(R.id.ordersRecyclerView)
         ordersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-
         fetchOrders()
 
         return view
@@ -53,7 +54,21 @@ class OrdersFragment : Fragment() {
                         val orders = response.body()!!.orders
                         ordersRecyclerView.adapter = AdminOrdersAdapter(orders,
                             onAssignClick = { order ->
-                                Toast.makeText(requireContext(), "Assigning agent for order: ${order}", Toast.LENGTH_SHORT).show()
+                                if (order.isNotEmpty()) {
+                                    Toast.makeText(requireContext(), "Assigning agent for order: $order", Toast.LENGTH_SHORT).show()
+                                    val bundle = Bundle()
+                                    bundle.putString("orderId", order)  // Send orderId to AgentsListFragment
+
+                                    val agentsListFragment = AgentsListFragment()
+                                    agentsListFragment.arguments = bundle
+
+                                    requireActivity().supportFragmentManager.beginTransaction()
+                                        .replace(R.id.admin_fragment_container, agentsListFragment) // Replace container id correctly
+                                        .addToBackStack(null)
+                                        .commit()
+                                } else {
+                                    Toast.makeText(requireContext(), "Order ID is invalid", Toast.LENGTH_SHORT).show()
+                                }
                             },
                             onStatusClick = { order ->
                                 fetchOrderStatus(order)
@@ -84,6 +99,7 @@ class OrdersFragment : Fragment() {
                 ) {
                     if (response.isSuccessful && response.body() != null) {
                         val status = response.body()?.get("status")?.toString() ?: "Not Assigned"
+
                         showStatusDialog(status)
                     } else {
                         Toast.makeText(requireContext(), "Failed to load status", Toast.LENGTH_SHORT).show()

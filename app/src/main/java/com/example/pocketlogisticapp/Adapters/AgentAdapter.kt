@@ -33,12 +33,14 @@ class AgentAdapter(
         holder.name.text = "Name: ${agent.name}"
         holder.email.text = "Email: ${agent.email}"
         holder.area.text = "Area: ${agent.area}"
-        holder.status.text =
-            if (agent.assignedOrders.isEmpty()) "Available" else "Not Available"
+        val isAvailable = agent.assignedOrders.isEmpty()
+        holder.status.text = if (isAvailable) "Available" else "Not Available"
+        holder.actionButton.isEnabled = isAvailable
 
-        holder.actionButton.isEnabled = false;
         holder.actionButton.setOnClickListener {
-            onClick(agent._id)
+            if (isAvailable) {
+                onClick(agent._id)
+            }
         }
     }
 

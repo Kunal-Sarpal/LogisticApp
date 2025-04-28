@@ -2,6 +2,7 @@ package com.example.pocketlogisticapp.api
 
 import com.example.pocketlogisticapp.model.AgentOrderModel
 import com.example.pocketlogisticapp.model.ApiAgent
+import com.example.pocketlogisticapp.model.AssignAgentRequest
 import com.example.pocketlogisticapp.model.LocationUpdateRequest
 import com.example.pocketlogisticapp.model.Product
 import com.example.pocketlogisticapp.model.LoginRequest
@@ -53,6 +54,12 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("orderId") orderId: String
     ): Call<Map<String, Any>>
+
+    @POST("admin/assign/agent")
+    fun assignAgent(
+        @Header("Authorization") token: String,
+        @Body request: AssignAgentRequest
+    ): Call<Void>
 
 
 }
