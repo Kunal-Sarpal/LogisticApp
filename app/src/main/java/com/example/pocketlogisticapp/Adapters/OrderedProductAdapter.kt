@@ -37,9 +37,10 @@ class OrderedProductAdapter(
 
     override fun onBindViewHolder(holder: OrderedItemViewHolder, position: Int) {
         val product = products[position]
-        holder.title.text = product.title
-        holder.price.text = "₹${product.price}"
-        Glide.with(holder.itemView.context).load(product.image).into(holder.image)
+        Log.d("This is","$product")
+        holder.title.text = product.productId.title
+        holder.price.text = "₹${product.productId.price}"
+        Glide.with(holder.itemView.context).load(product.productId.image).into(holder.image)
         Log.d("This is product id ",product._id)
         holder.trackBtn.setOnClickListener {
             showTrackingView(holder.itemView.context, product)
@@ -55,7 +56,7 @@ class OrderedProductAdapter(
 
         // Create and show dialog
         orderId.text = "${product._id}";
-        orderPrice.text = "Rs. ${product.price}";
+        orderPrice.text = "Rs. ${product.productId.price}";
 
         val dialog = MaterialAlertDialogBuilder(context)
             .setView(dialogView)

@@ -24,6 +24,7 @@ import retrofit2.Response
 
 class OrderFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
+    private lateinit var displayThings: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +32,7 @@ class OrderFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_order, container, false)
 
         recyclerView = view.findViewById(R.id.recyclerViewOrder)
+        displayThings = view.findViewById(R.id.orderThings)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
 
@@ -49,17 +51,23 @@ class OrderFragment : Fragment() {
                     call: Call<OrderedProductsResponse>,
                     response: Response<OrderedProductsResponse>
                 ) {
+                    Log.d("Response","$response")
                     if (response.isSuccessful && response.body() != null) {
-                        val products = response.body()!!.products
-                        Log.d("OrderedProducts", "Products: $products")
+                        val products = response.body()!!.orders
+                        if (products == null) {
+                            displayThings.visibility = View.VISIBLE
+                        } else {
+                            displayThings.visibility = View.GONE
 
-                        recyclerView.adapter = OrderedProductAdapter(products) { order ->
-                            Toast.makeText(
-                                requireContext(),
-                                "Tracking order #${order._id}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            // TODO: Add navigation to order tracking screen here
+
+                            recyclerView.adapter = OrderedProductAdapter(products) { order ->
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Tracking order #${order._id}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                // TODO: Add navigation to order tracking screen here
+                            }
                         }
                     } else {
                         Log.e("OrderFetch", "Response failed: ${response.code()}")

@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         // Spinner dropdown options
         val roles = arrayOf("Select Role", "Customer", "Admin", "Agent")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, roles)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item,)
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line    ,)
         spinner.adapter = adapter
 
         // 🔥 If user already logged in, skip to dashboard directly

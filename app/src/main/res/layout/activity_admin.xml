@@ -1,24 +1,33 @@
 <!-- res/layout/activity_admin.xml -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true">
 
-    <!-- Container for fragments -->
+    <!-- Fragment container -->
     <FrameLayout
         android:id="@+id/admin_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_nav" />
 
-    <!-- Bottom navigation view -->
+    <!-- Bottom Navigation Bar -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="3dp"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/menu_admin" />
+        android:background="@color/white"
+        app:itemIconTint="@color/selector_nav_icon"
+        app:itemTextColor="@color/selector_nav_text"
+        app:menu="@menu/menu_admin"
+        app:labelVisibilityMode="labeled"
+        android:elevation="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp" />
+
 </RelativeLayout>

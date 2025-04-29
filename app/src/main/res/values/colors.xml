@@ -5,9 +5,10 @@
     <color name="black">#FF000000</color>
     <color name="gray">#FF9E9E9E</color>
     <color name="light_gray">#FFEEEEEE</color>
+        <color name="colorPrimary">#FF5722</color>  <!-- Orange color (active) -->
+        <color name="colorSecondary">#757575</color>  <!-- Gray color (inactive) -->
 
     <!-- Primary Colors -->
-    <color name="colorPrimary">#FF6200EE</color>  <!-- Purple 500 -->
     <color name="colorPrimaryDark">#FF3700B3</color>  <!-- Purple 700 -->
     <color name="colorAccent">#FF03DAC5</color>  <!-- Teal 200 -->
 
@@ -24,7 +25,7 @@
 
     <!-- Background Colors -->
     <color name="bgLight">#FFF5F5F5</color>
-    <color name="bgDark">#FF121212</color>
+    <color name="bgDark">#FF333333</color>
 
     <!-- Button Colors -->
     <color name="buttonNormal">#FF6200EE</color>

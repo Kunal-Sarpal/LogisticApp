@@ -1,60 +1,83 @@
 package com.example.pocketlogisticapp.fragments.AdminFragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.example.pocketlogisticapp.R
+import com.example.pocketlogisticapp.TokenManager.TokensManager
+import org.json.JSONObject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [createProductFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class createProductFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_product, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_create_product, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment createProductFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            createProductFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        val titleEditText = view.findViewById<EditText>(R.id.titleEditText)
+        val priceEditText = view.findViewById<EditText>(R.id.priceEditText)
+        val stockEditText = view.findViewById<EditText>(R.id.stockEditText)
+        val imageUrlEditText = view.findViewById<EditText>(R.id.imageUrlEditText)
+        val submitButton = view.findViewById<Button>(R.id.submitButton)
+
+        submitButton.setOnClickListener {
+            val title = titleEditText.text.toString().trim()
+            val price = priceEditText.text.toString().toDoubleOrNull()
+            val stock = stockEditText.text.toString().toIntOrNull()
+            val imageUrl = imageUrlEditText.text.toString().trim()
+
+            if (title.isEmpty() || price == null || stock == null || imageUrl.isEmpty()) {
+                Toast.makeText(context, "Please fill all fields correctly", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val productData = JSONObject()
+            productData.put("title", title)
+            productData.put("price", price)
+            productData.put("stock", stock)
+            productData.put("duration", 1)
+            productData.put("unit","years")
+            productData.put("image", imageUrl)
+
+            // Send API request
+            val token = TokensManager.getToken(requireContext())
+            val url = "https://api.pocketindia.shop/api/v1/admin/create/product"
+            val requestQueue = Volley.newRequestQueue(requireContext())
+
+            val request = object : JsonObjectRequest(Request.Method.POST, url, productData,
+                { response ->
+                    Toast.makeText(context, "Product Created Successfully", Toast.LENGTH_SHORT).show()
+                },
+                { error ->
+                    val message = error.networkResponse?.let {
+                        String(it.data)
+                    } ?: error.message
+
+                    Toast.makeText(context, "Error: $message", Toast.LENGTH_SHORT).show()
+                }
+            ) {
+                override fun getHeaders(): MutableMap<String, String> {
+                    val headers = HashMap<String, String>()
+                    headers["Content-Type"] = "application/json"
+                    headers["Authorization"] = "$token"  // << use your token dynamically
+                    return headers
                 }
             }
+
+            requestQueue.add(request)
+        }
+
+
+        return view
     }
 }
